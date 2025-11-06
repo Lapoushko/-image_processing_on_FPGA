@@ -3,8 +3,14 @@ import processor
 from modification.filter.impl.Color import FilterColors, AvailableColors
 from modification.filter.impl.Emboss import Emboss
 from modification.transpose.impl.Rotate import Rotate
+from python_handler.mapper.coe_to_image import coe_to_image
+from python_handler.mapper.image_to_coe import image_to_coe
 
-image = image_loader.get_image("06.jpg")
+coe_image = image_to_coe("06.jpg", "output.coe", mode="RGB")
+image_universal = coe_to_image("output.coe", "restored.png")
+
+
+image = image_loader.get_image("restored.png")
 processor = processor.Processor(image)
 
 processor.add_filter(Emboss())
