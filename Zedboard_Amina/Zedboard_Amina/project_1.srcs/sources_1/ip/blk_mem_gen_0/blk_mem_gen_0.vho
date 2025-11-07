@@ -55,9 +55,8 @@
 COMPONENT blk_mem_gen_0
   PORT (
     clka : IN STD_LOGIC;
-    ena : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
-    douta : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
+    addra : IN STD_LOGIC_VECTOR(18 DOWNTO 0);
+    douta : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
   );
 END COMPONENT;
 -- COMP_TAG_END ------ End COMPONENT Declaration ------------
@@ -69,7 +68,6 @@ END COMPONENT;
 your_instance_name : blk_mem_gen_0
   PORT MAP (
     clka => clka,
-    ena => ena,
     addra => addra,
     douta => douta
   );

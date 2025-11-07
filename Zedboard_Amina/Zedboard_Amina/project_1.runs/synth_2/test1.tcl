@@ -32,17 +32,18 @@ set_property target_language Verilog [current_project]
 set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
 set_property ip_output_repo d:/Zedboard_Amina/project_1.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
+add_files D:/vindizel/image_128x128.coe
 read_verilog -library xil_defaultlib -sv {
   D:/Zedboard_Amina/project_1.srcs/sources_1/new/vga_conroller.sv
   D:/Zedboard_Amina/project_1.srcs/sources_1/new/test1.sv
 }
-read_ip -quiet d:/Zedboard_Amina/project_1.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
-set_property used_in_implementation false [get_files -all d:/Zedboard_Amina/project_1.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
-
-read_ip -quiet d:/Zedboard_Amina/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
+read_ip -quiet D:/Zedboard_Amina/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
 set_property used_in_implementation false [get_files -all d:/Zedboard_Amina/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_board.xdc]
 set_property used_in_implementation false [get_files -all d:/Zedboard_Amina/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xdc]
 set_property used_in_implementation false [get_files -all d:/Zedboard_Amina/project_1.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0_ooc.xdc]
+
+read_ip -quiet D:/Zedboard_Amina/project_1.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0.xci
+set_property used_in_implementation false [get_files -all d:/Zedboard_Amina/project_1.srcs/sources_1/ip/blk_mem_gen_0/blk_mem_gen_0_ooc.xdc]
 
 # Mark all dcp files as not used in implementation to prevent them from being
 # stitched into the results of this synthesis run. Any black boxes in the

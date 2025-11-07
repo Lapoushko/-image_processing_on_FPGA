@@ -35,14 +35,14 @@ module test1(
     blk_mem_gen_0 img_rom (
         .clka(clk25),
         .addra(addr),
-        .ena(1'b1),
+        //.ena(1'b1),
         .douta(pixel)
     );
 
     // Формирование адреса
     always @(posedge clk25) begin
         if (active) begin
-            if (x < 128 && y < 128)
+            if (x < 1920 && y < 1080)
                 addr <= y * 128 + x;
             else
                 addr <= 0;
