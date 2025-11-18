@@ -7,9 +7,11 @@ from modification.filter.impl.Emboss import Emboss
 from modification.transpose.impl.Rotate import Rotate
 from mapper.coe_to_image import coe_to_image
 from mapper.image_to_coe import image_to_coe
+from mapper.image_to_coe import image_to_coe_12
+from mapper.coe_to_image import coe_to_image_12bit
 
 # -------------------------------
-# Функция уменьшения изображения под ограничение размера
+# Функция уменьшения изображения под ограничение размера 24 бита на пиксель
 # -------------------------------
 def prepare_image_for_coe(input_path, max_kbits=100):
     """
@@ -43,16 +45,50 @@ def prepare_image_for_coe(input_path, max_kbits=100):
     return img
 
 # -------------------------------
+# Функция уменьшения изображения под ограничение размера 4 бита на пиксель
+# -------------------------------
+def prepare_image_for_12bit_coe(input_path, max_kbits=100, target_width=None, target_height=None):
+    """
+    Подготавливает изображение с 4-битным RGB кодированием (12 бит/пиксель)
+    для совместимости с Verilog VGA контроллером
+    """
+    img = Image.open(input_path).convert("RGB")
+    
+    # Если заданы целевые размеры - используем их
+    if target_width and target_height:
+        img = img.resize((target_width, target_height))
+        print(f"[INFO] Image resized to {target_width}x{target_height}")
+    else:
+        # Автоматическое масштабирование под ограничение размера
+        # 12 бит на пиксель (4 бита на канал)
+        bytes_per_pixel = 12 / 8  # 1.5 байта на пиксель
+        max_bytes = (max_kbits * 1024) // 8
+        width, height = img.size
+        current_size = width * height * bytes_per_pixel
+        
+        if current_size > max_bytes:
+            scale = (max_bytes / current_size) ** 0.5
+            new_width = max(1, int(width * scale))
+            new_height = max(1, int(height * scale))
+            img = img.resize((new_width, new_height))
+            print(f"[INFO] Image resized to {new_width}x{new_height} to fit {max_kbits} kb.")
+    
+    return img
+# -------------------------------
 # Генерация .coe с ограничением
 # -------------------------------
 def image_to_coe_limited(input_path, coe_path, max_kbits=100):
     """
     Генерирует .coe файл с ограничением размера (RGB)
     """
-    img = prepare_image_for_coe(input_path, max_kbits=max_kbits)
+    ##img = prepare_image_for_12bit_coe(input_path, max_kbits=max_kbits)
+    img = prepare_image_for_coe(input_path, max_kbits=max_kbits) # Сверху дублика для параметров 12 бит на пиксель
+   
     tmp_path = "tmp_image_for_coe.png"
     img.save(tmp_path)
-    coe_image = image_to_coe(tmp_path, coe_path, mode="RGB")
+    
+    ##coe_image = image_to_coe_12(tmp_path, coe_path, mode="RGB")
+    coe_image = image_to_coe(tmp_path, coe_path, mode="RGB") # Сверху дублика для параметров 12 бит на пиксель
     return coe_image
 
 # -------------------------------
@@ -61,11 +97,14 @@ def image_to_coe_limited(input_path, coe_path, max_kbits=100):
 
 # LENA изображение
 coe_image_LENA = image_to_coe_limited("7.jpg", "LENA_limited.coe", max_kbits=100)
-image_universal_LENA = coe_to_image("LENA_limited.coe", "restored_LENA.png")
+
+##image_universal_LENA = coe_to_image_12bit("LENA_limited.coe", "restored_LENA.png")
+mage_universal_LENA = coe_to_image("LENA_limited.coe", "restored_LENA.png") # Сверху дублика для параметров 12 бит на пиксель
 
 # Другое изображение
 coe_image_input = image_to_coe_limited("06.jpg", "output_limited.coe", max_kbits=100)
-image_universal_input = coe_to_image("output_limited.coe", "restored.png")
+##image_universal_input = coe_to_image("output_limited.coe", "restored.png") # Сверху дублика для параметров 12 бит на пиксель
+image_universal_input = coe_to_image("output_limited.coe", "restored.png") # Сверху дублика для параметров 12 бит на пиксель
 
 # -------------------------------
 # Обработка изображений через твой pipeline
