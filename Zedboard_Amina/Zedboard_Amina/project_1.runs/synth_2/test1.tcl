@@ -18,6 +18,7 @@ proc create_report { reportName command } {
   }
 }
 set_param xicom.use_bs_reader 1
+set_msg_config -id {Common 17-41} -limit 10000000
 create_project -in_memory -part xc7z020clg484-1
 
 set_param project.singleFileAddWarning.threshold 0
@@ -33,7 +34,11 @@ set_property board_part em.avnet.com:zed:part0:1.4 [current_project]
 set_property ip_output_repo d:/Zedboard_Amina/project_1.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 add_files D:/vindizel/image_128x128.coe
+add_files D:/vindizel/LENA.coe
+add_files D:/ZedBoard_Git/LENA.coe
+add_files d:/ZedBoard_Git/-image_processing_on_FPGA/python_handler/LENA_limited.coe
 read_verilog -library xil_defaultlib -sv {
+  D:/Zedboard_Amina/project_1.srcs/sources_1/new/pixel_processor.sv
   D:/Zedboard_Amina/project_1.srcs/sources_1/new/vga_conroller.sv
   D:/Zedboard_Amina/project_1.srcs/sources_1/new/test1.sv
 }

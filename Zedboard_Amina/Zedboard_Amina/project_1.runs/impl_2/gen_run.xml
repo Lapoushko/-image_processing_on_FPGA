@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_2" LaunchPart="xc7z020clg484-1" LaunchTime="1762357356">
+<GenRun Id="impl_2" LaunchPart="xc7z020clg484-1" LaunchTime="1763393434">
   <File Type="BITSTR-BMM" Name="test1_bd.bmm"/>
   <File Type="OPT-METHODOLOGY-DRC" Name="test1_methodology_drc_opted.rpt"/>
   <File Type="INIT-TIMING" Name="test1_timing_summary_init.rpt"/>
@@ -71,6 +71,13 @@
   <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/pixel_processor.sv">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
     <File Path="$PSRCDIR/sources_1/new/vga_conroller.sv">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -85,15 +92,25 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PSRCDIR/sources_1/bd/design_1/design_1.bd">
+    <File Path="$PPRDIR/../vindizel/image_128x128.coe">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../vindizel/image_128x128.coe">
+    <File Path="$PPRDIR/../vindizel/LENA.coe">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../ZedBoard_Git/LENA.coe">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../ZedBoard_Git/-image_processing_on_FPGA/python_handler/LENA_limited.coe">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
